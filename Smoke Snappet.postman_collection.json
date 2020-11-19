@@ -1,0 +1,215 @@
+{
+	"info": {
+		"_postman_id": "dcf07400-36c2-4f0a-bae5-9014f2a8e379",
+		"name": "Smoke Snappet",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create client",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b8c50933-3568-4012-8654-35bf49ae1b4d",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"pm.test(\"ID Exists\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"id\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"secret\":\"sugar\",\r\n    \"name\":\"peanutbutter\"\r\n}"
+				},
+				"url": {
+					"raw": "https://boyns97jh5.execute-api.eu-west-1.amazonaws.com/Prod/api/v1/Client?secret=peanut&name=butter",
+					"protocol": "https",
+					"host": [
+						"boyns97jh5",
+						"execute-api",
+						"eu-west-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"Prod",
+						"api",
+						"v1",
+						"Client"
+					],
+					"query": [
+						{
+							"key": "secret",
+							"value": "peanut"
+						},
+						{
+							"key": "name",
+							"value": "butter"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Token",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Host",
+						"value": "boyns97jh5.execute-api.eu-west-1.amazonaws.com"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "bob",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "bob",
+							"type": "text"
+						},
+						{
+							"key": "scope",
+							"value": "reader",
+							"type": "text"
+						},
+						{
+							"key": "client_id",
+							"value": "0292c21b-eb79-4654-abc6-a12a7c6be008",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "sugar",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://boyns97jh5.execute-api.eu-west-1.amazonaws.com/Prod/connect/token",
+					"protocol": "https",
+					"host": [
+						"boyns97jh5",
+						"execute-api",
+						"eu-west-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"Prod",
+						"connect",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetShelf",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a2f1d891-2a27-411d-b0a8-288de44c9e1e",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"content-type": true,
+					"user-agent": true
+				},
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjdDNkNDRkQxNDQ4NTFDOUY3NjFBOTY5QzQ3MDdFRUJEIiwidHlwIjoiYXQrand0In0.eyJuYmYiOjE2MDU4MDEwODcsImV4cCI6MTYwNTgwNDY4NywiaXNzIjoiaHR0cHM6Ly9ib3luczk3amg1LmV4ZWN1dGUtYXBpLmV1LXdlc3QtMS5hbWF6b25hd3MuY29tL1Byb2QiLCJhdWQiOiJodHRwczovL2JveW5zOTdqaDUuZXhlY3V0ZS1hcGkuZXUtd2VzdC0xLmFtYXpvbmF3cy5jb20vUHJvZC9yZXNvdXJjZXMiLCJjbGllbnRfaWQiOiIwMjkyYzIxYi1lYjc5LTQ2NTQtYWJjNi1hMTJhN2M2YmUwMDgiLCJzdWIiOiI4ODQyMTExMyIsImF1dGhfdGltZSI6MTYwNTgwMTA4NiwiaWRwIjoibG9jYWwiLCJqdGkiOiJENjUxRUY2NjhFMkI3M0FDNEY3QUI0MEQ1RjM2RUI2NyIsImlhdCI6MTYwNTgwMTA4Niwic2NvcGUiOlsicmVhZGVyIl0sImFtciI6WyJwd2QiXX0.tk94bunI0tNoy4_AsmvoG0hHAgct1SWBu11UWvRxpAogT767WwLPZ7VWQKqPyuPk6Kb0SwZrulSNoBjMrMyiQi9aedO9tUoEuC3aiu72LU6BdB3pxWQitNyuB1LxN2eV4Nco2rqgia2m_rD26T_lNO2Ehe_KY6OWqAxA0MRfcEhxMZHhvoQEwOolkNHwdNBrYj7jtVhic7sxdeQGFHAfIWoGnSEiYfVMqRbw8EWeYVRbh4uR7KPE_OZdp5ihH_Zl8MuNAXVjByVbe8wz3ZZiE_1hVqPloLhCYh9alDFaWVEmmPzqE9agYfnAXmq1rAjegRW5M79X5BMXrfbMExAzxg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "text"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://boyns97jh5.execute-api.eu-west-1.amazonaws.com/Prod/api/v1/Shelf",
+					"protocol": "https",
+					"host": [
+						"boyns97jh5",
+						"execute-api",
+						"eu-west-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"Prod",
+						"api",
+						"v1",
+						"Shelf"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
