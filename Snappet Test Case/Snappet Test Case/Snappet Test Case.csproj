@@ -5,6 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Hooks\**" />
+    <EmbeddedResource Remove="Hooks\**" />
+    <None Remove="Hooks\**" />
+    <SpecFlowFeatureFiles Remove="Hooks\**" />
+    <SpecFlowObsoleteCodeBehindFiles Remove="Hooks\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="nlog.config" />
   </ItemGroup>
 
@@ -35,10 +43,6 @@
     
     <PackageReference Include="FluentAssertions" Version="5.10.3" />
     
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Hooks\" />
   </ItemGroup>
 
   <ItemGroup>
